@@ -58,6 +58,7 @@
             fastapi
             uvicorn
             httpx
+            h2
             websockets
             watchdog
             zstandard
