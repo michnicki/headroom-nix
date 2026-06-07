@@ -79,7 +79,11 @@
           # ast-grep-cli PyPI package bundles the binary; use the native nixpkgs package instead
           pythonRemoveDeps = [ "ast-grep-cli" ];
 
-          makeWrapperArgs = [ "--prefix" "PATH" ":" "${pkgs.ast-grep}/bin" ];
+          makeWrapperArgs = [
+            "--prefix" "PATH" ":" "${pkgs.ast-grep}/bin"
+            "--prefix" "PYTHONPATH" ":" "${placeholder "out"}/${python.sitePackages}"
+            "--prefix" "PYTHONPATH" ":" (pkgs.lib.makeSearchPath python.sitePackages propagatedBuildInputs)
+          ];
 
           doCheck = false;
         };
